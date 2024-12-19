@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="header">
+        <div>
+            <button (click)="logout()">Logout</button>
+            <button (click)="showUsers()">users</button>
+        </div>
+    </div>
+    <div>
+        <h1>WELCOME TO DASHBOARD</h1>
+        <h3>
+            Previous time:
+            {{ previousTime | date: 'HH:mm:ss'}}
+        </h3>
+        <h3>
+            Current time: 
+            {{ currentUser?.currentTime | date: 'HH:mm:ss' }}
+          </h3>
+    </div>
+</div>

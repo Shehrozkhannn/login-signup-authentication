@@ -1,0 +1,18 @@
+
+
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form [formGroup]="loginForm">
+        <h3 style="background-color: transparent;">Login Here</h3>
+
+        <label for="username" style="background-color: transparent;">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username" formControlName="username">
+
+        <label for="password" style="background-color: transparent;">Password</label>
+        <input type="password" placeholder="Password" id="password" formControlName="password">
+
+        <button style="color: black; margin-bottom: 50px;" (click)="login()">Log In</button>
+        <span (click)="router.navigate(['/register'])">Register here</span>
+    </form>

@@ -1,0 +1,23 @@
+
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form [formGroup]="registerForm">
+    <h3 style="background-color: transparent;">Register Here</h3>
+
+    <label for="username" style="background-color: transparent;">Username</label>
+    <input type="text" placeholder="Email or Phone" id="username" formControlName="username">
+
+    <label for="phone" style="background-color: transparent;">Phone</label>
+    <input type="number" placeholder="Phone" id="phone" formControlName="phone">
+
+    <label for="role" style="background-color: transparent;">Role</label>
+    <input type="text" placeholder="Role" id="role"  formControlName="role">
+
+    <label for="password" style="background-color: transparent;">Password</label>
+    <input type="password" placeholder="Password" id="password" formControlName="password">
+
+    <button style="color: black;" (click)="register()">Register</button>
+</form>
+
