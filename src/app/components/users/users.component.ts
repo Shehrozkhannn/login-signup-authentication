@@ -65,9 +65,22 @@ export class UsersComponent implements OnInit {
       data:rowData ? {...rowData}: null
     });
       dialogRef.afterClosed().subscribe((result) => {
+        console.log(result);
         if (result) {
-          this.dataSource.data = [...this.dataSource.data, result];
+          if(rowData){
+            const index = this.dataSource.data.findIndex((val)=> val.id === result.id);
+            if(index !== -1){
+              this.dataSource.data[index] = result;
+              this.dataSource.data = [...this.dataSource.data];
+            }
+          }else{
+            this.dataSource.data = [...this.dataSource.data, result];
+          }
         }
       });
+  }
+
+  deleteRow(data:any){
+    this.dataSource.data = [...this.dataSource.data.filter((item)=> item.id !== data.id)]
   }
 }
