@@ -15,5 +15,9 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         loadComponent: () => import ('./components/main/main.component').then((e)=> e.MainComponent)
+    },
+    {
+        path: 'users',
+        loadComponent: () => import ('./components/users/users.component').then((e)=> e.UsersComponent)
     }
 ];

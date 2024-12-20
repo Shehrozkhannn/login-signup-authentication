@@ -1,27 +1,73 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { UserDialogComponent } from '../../user-dialog/user-dialog.component';
+import { NgFor } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-users',
-  imports: [],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit{
+export class UsersComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'body', 'title', 'userId', 'actions'];
+  dataSource = new MatTableDataSource<any>([]);
 
-  constructor(private http: HttpClient){
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  }
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.showUsers();
   }
 
-  showUsers(){
-    const url = 'https://jsonplaceholder.typicode.com/posts';
-    this.http.get(url).subscribe((res)=>{
-      console.log(res)
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
-    )
+  }
+
+  showUsers() {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    this.http.get<any>(url).subscribe((res) => {
+      this.dataSource.data = res;
+    });
+  }
+
+  openDialog(rowData:any = null): void {
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '400px',
+      data:rowData ? {...rowData}: null
+    });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.dataSource.data = [...this.dataSource.data, result];
+        }
+      });
   }
 }

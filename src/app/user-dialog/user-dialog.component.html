@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create New User</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Body</mat-label>
+    <input matInput [(ngModel)]="newUser.body" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="newUser.title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>User ID</mat-label>
+    <input matInput type="number" [(ngModel)]="newUser.userId" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
+</div>
